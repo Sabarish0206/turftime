@@ -18,10 +18,10 @@ export const getAllUsers = async(req,res,next) =>{
 
 export const signup = async(req,res,next) =>{
     const {name,email,password}= req.body;
-    if(!name && name.trim()==="" && !email && email.trim() === "" && !password && password.trim()===""){
+    if(!name || name.trim()==="" || !email || email.trim() === "" || !password || password.trim()===""){
         return res.status(422).json({messgage:"Invalid inputs"})
     }
-
+    
     const hashedPassword = bcrypt.hashSync(password); 
 
     let user;
@@ -37,13 +37,14 @@ export const signup = async(req,res,next) =>{
     return res.status(201).json(({user}));
 
 
+
 }
 
 export const updateUser = async(req,res,next) =>{
     const id = req.params.id;
 
     const {name,email,password}= req.body;
-    if(!name && name.trim()==="" && !email && email.trim() === "" && !password && password.trim()===""){
+    if(!name || name.trim()==="" || !email || email.trim() === "" || !password || password.trim()===""){
         return res.status(422).json({message:"Invalid inputs"})
     }
 
@@ -76,3 +77,31 @@ export const deleteUser = async(req,res,next) =>{
     }
     return res.status(200).json({message:"Deleted successfully"});
 }
+
+export const login = async(req,res,next)=>{
+    const {email,password}= req.body;
+    if(!email || email.trim() === "" || !password || password.trim()===""){
+        return res.status(422).json({message:"Invalid inputs"})
+    }
+
+    let existingUser;
+    try{
+        existingUser = await User.findOne({email});
+    }catch(err){
+        console.log(err);
+    }
+
+    if(!existingUser){
+        return res.status(404).json({message:"User not found"})
+    }
+
+    const isPasswordCorrect = bcrypt.compareSync(password,existingUser.password);
+
+    if(!isPasswordCorrect){
+        return res.status(400).json({message:"Incorrect Password"});
+    }
+
+    return res.status(200).json({message:"Login Successfull"});
+
+}
+
