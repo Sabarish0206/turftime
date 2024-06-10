@@ -1,8 +1,14 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
+import userRouter from './routes/user-routes.js';
 dotenv.config();
 const app = express();
+
+
+//middlewares
+app.use(express.json());
+app.use("/user",userRouter);
 
 
 mongoose.connect(
@@ -21,6 +27,3 @@ app.use("/",(req,res,next)=>{
 });
 
 
-
-
-//vPDhmsi6ReHtuHUh
