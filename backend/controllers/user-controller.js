@@ -38,3 +38,41 @@ export const signup = async(req,res,next) =>{
 
 
 }
+
+export const updateUser = async(req,res,next) =>{
+    const id = req.params.id;
+
+    const {name,email,password}= req.body;
+    if(!name && name.trim()==="" && !email && email.trim() === "" && !password && password.trim()===""){
+        return res.status(422).json({message:"Invalid inputs"})
+    }
+
+    let user;
+    const hashedPassword = bcrypt.hashSync(password); 
+    try{
+        user = await User.findByIdAndUpdate(id,{name,email,password:hashedPassword});
+    }catch(err){
+        console.log(err);
+    }
+
+    if(!user){
+        return res.status(500).json({message:"unexpected error occured"})
+    }
+    return res.status(200).json({message:"Updated successfully"});
+
+};
+
+export const deleteUser = async(req,res,next) =>{
+    const id = req.params.id;
+    let user;
+    try{
+        user = await User.findByIdAndDelete(id);
+    }catch(err){
+        console.log(err);
+    }
+
+    if(!user){
+        return res.status(500).json({message:"unexpected error occured"})
+    }
+    return res.status(200).json({message:"Deleted successfully"});
+}
