@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import userRouter from './routes/user-routes.js';
 import adminRouter from './routes/admin-routes.js';
 import turfRouter from './routes/turf-routes.js';
+import bookingRouter from './routes/booking-routes.js';
 dotenv.config();
 const app = express();
 
@@ -13,7 +14,7 @@ app.use(express.json());
 app.use("/user",userRouter);
 app.use("/admin",adminRouter);
 app.use("/turf",turfRouter);
-
+app.use("/booking",bookingRouter);
 
 mongoose.connect(
     `mongodb+srv://admin:${process.env.MONGODB_PASSWORD}@cluster0.oxuhthb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`
