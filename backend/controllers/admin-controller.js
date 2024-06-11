@@ -61,3 +61,18 @@ export const adminLogin = async(req,res,next) => {
 
     return res.status(200).json({message:"Login Successfull",token,id:existingAdmin._id});
 }
+
+export const getAllAdmin = async(req,res,next) =>{
+    let admin;
+    try{
+        admin = await Admin.find();
+    } catch (err){
+        return next(err);
+    }
+
+    if(!admin){
+        return res.status(500).json({messgage:"unexpected error occured"});
+    }
+
+    return res.status(200).json({admin})
+}

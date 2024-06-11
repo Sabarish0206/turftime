@@ -1,5 +1,7 @@
 import jwt from "jsonwebtoken";
 import Turf from "../models/Turf.js";
+import mongoose from "mongoose";
+import Admin from "../models/Admin.js";
 
 export const addTurf = async(req,res,next)=>{
 
@@ -37,7 +39,14 @@ export const addTurf = async(req,res,next)=>{
     let turf;
     try{
         turf = new Turf({turfName,description,location,games,posterUrl,featured,price,admin:adminId});
-        turf = await turf.save();
+        
+        const session = await mongoose.startSession();
+        const adminUser = await Admin.findById(adminId);
+        session.startTransaction();
+        await turf.save({session});
+        adminUser.addedTurfs.push(turf);
+        await adminUser.save({session});
+        await session.commitTransaction();
     } catch (err){
         console.log(err);
     }

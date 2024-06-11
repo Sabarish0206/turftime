@@ -23,8 +23,8 @@ const turfSchema = new mongoose.Schema({
         required:true,
     }],
     admin:{
-        type:String,
-        required:true,
+        type:mongoose.Types.ObjectId,
+        ref:"Admin",
     },
     bookings:[{
         type:String,

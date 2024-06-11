@@ -11,8 +11,10 @@ const adminSchema = new mongoose.Schema({
         required:true,
         minLength:6,
     },
-    addedMovies:[{
-        type:String,
+    addedTurfs:[{
+        type:mongoose.Types.ObjectId,
+        ref:"Turf",
+
     },
 ]
 });
