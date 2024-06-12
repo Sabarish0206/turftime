@@ -1,3 +1,4 @@
+import Bookings from "../models/Bookings.js";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs"
 
@@ -105,3 +106,24 @@ export const login = async(req,res,next)=>{
 
 }
 
+export const getUserBookingId = async(req,res,next)=>{
+    let userId = req.params.id;
+    let booking;
+
+    try {
+        booking = await Bookings.find({user:userId});
+    } catch (err) {
+        console.log(err)
+    }
+    if(!booking){
+        res.status(400).json({message:"No user found"});
+    }
+
+    const userBookings = booking.map(book => ({
+        date: book.date,
+        turf: book.turf,
+        slotNumber:book.slotNumber
+    }));
+
+    return res.status(201).json({userBookings})
+}

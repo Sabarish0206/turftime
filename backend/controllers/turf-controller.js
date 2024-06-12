@@ -60,11 +60,11 @@ export const addTurf = async(req,res,next)=>{
 
 
 
-export const getTurf = async(req,res,next)=>{
+export const getAllTurf = async(req,res,next)=>{
     const {location} = req.body;
     let turf;
     try{
-        turf =await Turf.find({location})
+        turf =await Turf.find()
     }catch(err){
         console.log(err);
     }

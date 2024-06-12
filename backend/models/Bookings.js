@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
+import Turf from "./Turf.js";
 
 const bookingSchema = new mongoose.Schema({
     turf:{
-        type:String,
+        type:mongoose.Types.ObjectId,
+        ref:"Turf",
         required:true,
     },
     date:{
@@ -14,7 +16,8 @@ const bookingSchema = new mongoose.Schema({
         required:true
     },
     user:{
-        type:String,
+        type:mongoose.Types.ObjectId,
+        ref:"User",
         required:true,
     },
 

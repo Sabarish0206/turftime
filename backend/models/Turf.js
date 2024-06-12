@@ -27,7 +27,8 @@ const turfSchema = new mongoose.Schema({
         ref:"Admin",
     },
     bookings:[{
-        type:String,
+        type:mongoose.Types.ObjectId,
+        ref:"Booking",
     }],
     posterUrl:{
         type:String,

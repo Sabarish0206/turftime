@@ -10,7 +10,7 @@ export const addAdmin = async(req,res,next) =>{
         return res.status(422).json({messgage:"Invalid inputs"})
     }
 
-    const alreadExist = Admin.findOne({email});
+    const alreadExist =await Admin.findOne({email});
     if(alreadExist){
         return res.status(422).json({message:"Admin already exist"});
     }
@@ -27,11 +27,10 @@ export const addAdmin = async(req,res,next) =>{
     if(!admin){
         return res.status(500).json({messgage:"unexpected error occured"});
     }
-    return res.status(201).json(({admin}));
+    return res.status(201).json({ message: "Admin created successfully", admin });
+
 };
-
 //////////////
-
 export const adminLogin = async(req,res,next) => {
     const {email,password} = req.body;
 
@@ -60,8 +59,8 @@ export const adminLogin = async(req,res,next) => {
     });
 
     return res.status(200).json({message:"Login Successfull",token,id:existingAdmin._id});
-}
-
+};
+/////////////////
 export const getAllAdmin = async(req,res,next) =>{
     let admin;
     try{
@@ -75,4 +74,4 @@ export const getAllAdmin = async(req,res,next) =>{
     }
 
     return res.status(200).json({admin})
-}
+};
