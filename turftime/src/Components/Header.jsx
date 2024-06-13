@@ -3,6 +3,7 @@ import {AppBar, Toolbar, Autocomplete, TextField, Tab, Tabs} from "@mui/material
 import GrassTwoToneIcon from '@mui/icons-material/GrassTwoTone';
 import { Box }from "@mui/system";
 import { getAllTurfs } from "../api_helpers/api_helpers";
+import { Link } from "react-router-dom";
 
 const Header = ()=>{
     const [value,setValue] = useState(0);
@@ -38,9 +39,9 @@ const Header = ()=>{
                     indicatorColor="secondary" 
                     value={value} 
                     onChange={(e,val)=>{setValue(val)}}>
-                        <Tab  label="Signup"/>
-                        <Tab label="Turf"/>
-                        <Tab  label="Admin"/>
+                        <Tab LinkComponent={Link} to="/turf"  label="Turf"/>
+                        <Tab LinkComponent={Link} to="/auth"  label="Auth"/>
+                        <Tab LinkComponent={Link} to="/admin" label="Admin"/>
                     </Tabs>
                 </Box>
             </Toolbar>
