@@ -5,8 +5,16 @@ import userRouter from './routes/user-routes.js';
 import adminRouter from './routes/admin-routes.js';
 import turfRouter from './routes/turf-routes.js';
 import bookingRouter from './routes/booking-routes.js';
+import cors from 'cors';
+
 dotenv.config();
+
+
 const app = express();
+
+
+
+app.use(cors());
 
 
 //middlewares
