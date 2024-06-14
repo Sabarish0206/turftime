@@ -1,9 +1,18 @@
 import React from 'react'
+import AuthForm from '../Auth/AuthForm'
+import { sendAdminAuthRequest} from '../../api_helpers/api_helpers';
 
-function Admin() {
+const Admin = () => {
+  const getData = (data)=>{
+    console.log("Admin",data);
+    sendAdminAuthRequest(data.input,data.signup)
+    .then((data)=>{console.log("Response from admin auth :",data)})
+    .catch((err)=>{console.log(err)})
+  };
+
   return (
     <div>
-      Admin
+      <AuthForm onSubmit={getData} isAdmin={true}/>
     </div>
   )
 }
