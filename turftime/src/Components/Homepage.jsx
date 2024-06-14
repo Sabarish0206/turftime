@@ -1,10 +1,20 @@
-import { Box, Button, Typography} from '@mui/material'
-import React from 'react'
-import TurfItems from './Turf/TurfItems'
+import { Box, Button, Typography} from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import TurfItems from './Turf/TurfItems';
+import { Link } from "react-router-dom";
+import { getAllTurfs } from '../api_helpers/api_helpers';
 
 const Homepage = () => {
+  const [turf,setTurf] = useState([]);
+ useEffect(()=>{
+    getAllTurfs()
+    .then((res)=>setTurf(res.turf))
+    .catch((err)=>console.log(err))
+  },[])
+  console.log("Homepage:",turf)
   return (
     <div>
+    
       Homepage
       <Box width={"100%"} height={"100%"} margin={"auto"} marginTop={"50px"} >
         
@@ -24,13 +34,25 @@ const Homepage = () => {
              flexWrap={"wrap"}
              margin={"auto"}
         > 
-        {[1,2,3,4].map((item)=><TurfItems key={item}/>)}
+        {turf.slice(0,2).map((item,index)=> 
+        <TurfItems 
+        id={item.id} 
+        turfName={item.turfName} 
+        imageUrl={item.posterUrl} 
+        description={item.description} 
+        key={index}
+        location={item.location} />)}
           
         </Box>
 
         <Box display={"flex"} padding={5} margin={"auto"}>
-          <Button variant='outlined' sx={{margin:"auto",color:"#2b2d42"}}>
-              View All Movies
+          <Button  
+           color="secondary" 
+           variant='outlined'
+           sx={{margin:"auto",color:"#2b2d42"}}
+           LinkComponent={Link} to="/turf"
+          >
+              View All Turfs
           </Button>
         </Box>
 

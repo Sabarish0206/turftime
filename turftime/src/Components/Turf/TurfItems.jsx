@@ -1,29 +1,31 @@
 import React from 'react'
 import {Card,CardMedia,Typography,CardContent,CardActions,Button} from '@mui/material'
 
-function TurfItems() {
+const TurfItems = ({id,imageUrl,turfName,description,location}) => {
   return (
-    <Card sx={{ width: 250,height:360,borderRadius:5,
+    <Card sx={{ width: 270,height:"auto",borderRadius:5,
     ":hover":{
         boxShadow:"10px 10px 20px #ccc",
     },margin:2
      }}>
     <CardMedia
       sx={{ height: 140 }}
-      image=""
+      image={imageUrl}
       title="green iguana"
     />
     <CardContent>
       <Typography gutterBottom variant="h5" component="div">
-        Lizard
+        {turfName}
       </Typography>
       <Typography variant="body2" color="text.secondary">
-        Lizards are a widespread group of squamate reptiles, with over 6,000
-        species, ranging across all continents except Antarctica
+        {description}
+      </Typography>
+      <Typography variant="body" color="text.secondary">
+        {location}
       </Typography>
     </CardContent>
     <CardActions>
-      <Button sx={{margin:"auto"}} size="small">Share</Button>
+      <Button sx={{margin:"auto",paddingBottom:3}} size="small">Book</Button>
     </CardActions>
   </Card>
   )
