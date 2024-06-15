@@ -4,8 +4,16 @@ import GrassTwoToneIcon from '@mui/icons-material/GrassTwoTone';
 import { Box }from "@mui/system";
 import { getAllTurfs } from "../api_helpers/api_helpers";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { adminActions, userActions } from "../Store";
 
 const Header = ()=>{
+
+    const isAdminLogedIn =useSelector((state)=>state.admin.isLogedIn);
+    const isUserLogedIn =useSelector((state)=>state.user.isLogedIn);
+
+    const dispatch = useDispatch();
+
     const [value,setValue] = useState(0);
     const [turf,setTurf] = useState([]);
     useEffect(()=>{
@@ -13,6 +21,10 @@ const Header = ()=>{
     .then((data)=>setTurf(data.turf))
     .catch((err)=>console.log(err));
     },[]);
+
+    const logOut = (isAdmin)=>{
+        isAdmin ? dispatch(adminActions.logout()) : dispatch(userActions.logout())
+    }
     return (
     <div>
         <AppBar sx={{bgcolor:"#2b2d42"}}>
@@ -38,10 +50,31 @@ const Header = ()=>{
                     <Tabs textColor="white" 
                     indicatorColor="secondary" 
                     value={value} 
-                    onChange={(e,val)=>{setValue(val)}}>
+                    onChange={(e,val)=>{setValue(val)}}
+                >
+
                         <Tab LinkComponent={Link} to="/turf"  label="Turf"/>
-                        <Tab LinkComponent={Link} to="/auth"  label="Auth"/>
-                        <Tab LinkComponent={Link} to="/admin" label="Admin"/>
+
+                        {!isUserLogedIn && !isAdminLogedIn &&
+                        <>
+                            <Tab LinkComponent={Link} to="/auth"  label="Auth"/>
+                            <Tab LinkComponent={Link} to="/admin" label="Admin"/>
+                        </>}
+                        {isUserLogedIn &&
+                        <>
+                        <Tab LinkComponent={Link} to="/user"  label="Profile"/>
+                        <Tab onClick={()=>logOut(false)}  LinkComponent={Link} to="/" label="LogOut"/>
+                        </>
+                        }
+                        {
+                            isAdminLogedIn && 
+                            <>
+                            <Tab LinkComponent={Link} to="/admin"  label="Profile"/>
+                            <Tab LinkComponent={Link} to="/add"  label="AddTurf"/>
+                            <Tab onClick={()=>{logOut(true)}} LinkComponent={Link} to="/" label="LogOut"/>
+                            </>
+                        }
+                        
                     </Tabs>
                 </Box>
             </Toolbar>

@@ -27,9 +27,6 @@ export const sendUserAuthRequest = async (data,signUp) =>{
     const resData = await res.data;
     console.log("post:",res);
     return resData;
-
-
-
 }
 
 export const sendAdminAuthRequest = async (data,signUp) =>{
