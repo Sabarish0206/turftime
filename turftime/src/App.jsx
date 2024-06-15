@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import Header from "./Components/Header"
 import { Route, Router, Routes } from 'react-router-dom';
@@ -6,9 +6,26 @@ import Turf from './Components/Turf/Turf.jsx';
 import Homepage from './Components/Homepage.jsx';
 import Admin from './Components/Admin/Admin.jsx';
 import Auth from './Components/Auth/Auth.jsx';
+import { useDispatch, useSelector } from 'react-redux';
+import { adminActions, userActions } from './Store/index.js';
 
 function App() {
-
+  const dispatch = useDispatch();
+  const isAdminLogedIn =useSelector((state)=>state.admin.isLogedIn);
+  const isUserLogedIn =useSelector((state)=>state.user.isLogedIn);
+  const userId = localStorage.getItem("userId")
+  useEffect(()=>{
+    console.log(userId)
+  if(userId && userId !== "undefined"){
+    dispatch(userActions.login());
+    console.log("ds")
+  }
+  if (localStorage.getItem("adminId")){
+    dispatch(adminActions.login());
+  
+  }
+    
+},[dispatch,Auth])
   return (
     <div>
       <Header />
