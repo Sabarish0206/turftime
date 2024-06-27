@@ -1,5 +1,6 @@
 import Bookings from "../models/Bookings.js";
 import User from "../models/User.js";
+import Turf from "../models/Turf.js"
 import bcrypt from "bcryptjs"
 
 export const getAllUsers = async(req,res,next) =>{
@@ -119,11 +120,50 @@ export const getUserBookingId = async(req,res,next)=>{
         res.status(400).json({message:"No user found"});
     }
 
-    const userBookings = booking.map(book => ({
-        date: book.date,
-        turf: book.turf,
-        slotNumber:book.slotNumber
-    }));
+    // const userBookings = booking.map(book => ({
+    //     date: book.date,
+    //     turf: book.turf,
+    //     slotNumber:book.slotNumber
+    // }));
 
-    return res.status(201).json({userBookings})
+    return res.status(201).json({booking})
+}
+
+export const getUserById = async(req,res,next)=>{
+    const id = req.params.id;
+    let user;
+    // try{
+    //     user = await User.findById(id);
+    // } 
+    try { user = await User.findById(id)
+            .populate({
+                path: 'bookings',
+                populate: {
+                    path: 'turf',
+                    model: 'Turf'
+                }
+            })}
+    catch (err){
+        return next(err);
+    }
+
+    if(!user){
+        return res.status(500).json({messgage:"unexpected error occured"});
+    }
+
+    const userWithTurfNames = {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        bookings: user.bookings.map(booking => ({
+            _id: booking._id,
+            turfName: booking.turf.turfName,
+            date: booking.date,
+            slotNumber: booking.slotNumber
+        }))
+    };
+
+    
+
+    return res.status(200).json({ userWithTurfNames })
 }

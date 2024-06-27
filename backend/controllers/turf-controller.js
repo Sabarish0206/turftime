@@ -78,9 +78,9 @@ export const getAllTurf = async(req,res,next)=>{
 
 
 export const getTurfById = async(req,res,next)=>{
-    const turfId = req.params.id;
+    const turfId = req.body;
     let turf;
-    try{
+        try{
         turf = await Turf.findById(turfId);
     }catch(err){
         console.log(err);

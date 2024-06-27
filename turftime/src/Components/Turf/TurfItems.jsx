@@ -1,5 +1,6 @@
 import React from 'react'
 import {Card,CardMedia,Typography,CardContent,CardActions,Button} from '@mui/material'
+import { Link } from 'react-router-dom';
 
 const TurfItems = ({id,imageUrl,turfName,description,location}) => {
   return (
@@ -25,7 +26,7 @@ const TurfItems = ({id,imageUrl,turfName,description,location}) => {
       </Typography>
     </CardContent>
     <CardActions>
-      <Button sx={{margin:"auto",paddingBottom:3}} size="small">Book</Button>
+      <Button LinkComponent={Link} to={`/booking/${id}`} sx={{margin:"auto",paddingBottom:3}} size="small">Book</Button>
     </CardActions>
   </Card>
   )

@@ -43,3 +43,22 @@ export const sendAdminAuthRequest = async (data,signUp) =>{
     console.log("post:",resData);
     return resData;
 }
+
+export const getUser = async(id) =>{
+    console.log("From apihelpers Id:",id)
+    const res = await axios.get(`/user/${id}`)
+        .catch(err=>console.log(err));
+
+    if(res){
+        console.log("response from apiHelper:",res);
+    }
+
+    const resData = await res.data;
+    console.log("UserByid:",resData);
+
+    // const turf = await axios.get(`/user/${res.data.booking[0]}`)
+
+
+
+    return resData;
+}

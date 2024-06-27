@@ -3,11 +3,13 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import React, { useState } from 'react'
 
 const AuthForm = ({onSubmit,isAdmin}) => {
+
     const [input,setInput] = useState({
         name:"",
         email:"",
         password:""
-    })
+    });
+
     const [isSignup,setIsSignup] = useState(false);
 
 
@@ -23,6 +25,7 @@ const AuthForm = ({onSubmit,isAdmin}) => {
     const close=()=>{
         setOpen(!open);
     }
+
     const handleSubmit = (e)=>{
         e.preventDefault();
         onSubmit({input, signup: isAdmin ? false :isSignup});
@@ -77,7 +80,7 @@ const AuthForm = ({onSubmit,isAdmin}) => {
 
     fullWidth
   />
-    <Button type="submit" variant="contained" color="primary">
+    <Button onClick={close} type="submit" variant="contained" color="primary">
     {isSignup?"SIGNUP":"LOGIN"}
   </Button>
 

@@ -21,7 +21,7 @@ const Turf = () => {
       <Box display="flex" width="100%" margin="auto" marginTop={3} justifyContent="center" flexWrap="wrap" >
       {turf.map((item,index)=>{
         return <TurfItems 
-        id={item.id} 
+        id={item._id} 
         turfName={item.turfName} 
         imageUrl={item.posterUrl} 
         description={item.description}

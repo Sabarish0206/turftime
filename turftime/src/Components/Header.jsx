@@ -12,10 +12,14 @@ const Header = ()=>{
     const isAdminLogedIn =useSelector((state)=>state.admin.isLogedIn);
     const isUserLogedIn =useSelector((state)=>state.user.isLogedIn);
 
+    const userId = localStorage.getItem("userId")
+
     const dispatch = useDispatch();
 
     const [value,setValue] = useState(0);
+
     const [turf,setTurf] = useState([]);
+
     useEffect(()=>{
     getAllTurfs()
     .then((data)=>setTurf(data.turf))
@@ -62,14 +66,14 @@ const Header = ()=>{
                         </>}
                         {isUserLogedIn &&
                         <>
-                        <Tab LinkComponent={Link} to="/user"  label="Profile"/>
-                        <Tab onClick={()=>logOut(false)}  LinkComponent={Link} to="/" label="LogOut"/>
+                    <Tab LinkComponent={Link} to={`/user/${userId}`}  label="Profile"/>
+                        <Tab  onClick={()=>{logOut(false)}} LinkComponent={Link} to="/" label="LogOut"/>
                         </>
                         }
                         {
                             isAdminLogedIn && 
                             <>
-                            <Tab LinkComponent={Link} to="/admin"  label="Profile"/>
+                            <Tab LinkComponent={Link} to="/admin/profile"  label="Profile"/>
                             <Tab LinkComponent={Link} to="/add"  label="AddTurf"/>
                             <Tab onClick={()=>{logOut(true)}} LinkComponent={Link} to="/" label="LogOut"/>
                             </>

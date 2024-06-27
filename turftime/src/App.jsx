@@ -8,6 +8,8 @@ import Admin from './Components/Admin/Admin.jsx';
 import Auth from './Components/Auth/Auth.jsx';
 import { useDispatch, useSelector } from 'react-redux';
 import { adminActions, userActions } from './Store/index.js';
+import AdminProfile from './Components/Admin/AdminProfile.jsx';
+import UserProfile from './Components/User/UserProfile.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -33,7 +35,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage/>}/>
           <Route path="/turf" element={<Turf/>} />
+          <Route path="/user/:id" element={<UserProfile/>} />
           <Route path="/admin" element={<Admin/>}/>
+          <Route path="/admin/profile" element={<AdminProfile/>} />
           <Route path="/auth" element={<Auth/>}/>
         </Routes>
       </section>
