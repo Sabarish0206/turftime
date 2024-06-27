@@ -24,7 +24,7 @@ export const addTurf = async(req,res,next)=>{
     });
 
 
-    const {turfName,description,location,games,price,posterUrl,featured} = req.body;
+    const {turfName,description,location,games,price,posterUrl,featured,slots} = req.body;
 
     if(!turfName || turfName.split() === "" ||
        !description || description.split() ==="" ||
@@ -38,7 +38,7 @@ export const addTurf = async(req,res,next)=>{
 
     let turf;
     try{
-        turf = new Turf({turfName,description,location,games,posterUrl,featured,price,admin:adminId});
+        turf = new Turf({turfName,description,location,games,posterUrl,featured,price,admin:adminId,slots});
         
         const session = await mongoose.startSession();
         const adminUser = await Admin.findById(adminId);

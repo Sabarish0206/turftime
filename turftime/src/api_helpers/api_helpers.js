@@ -62,3 +62,31 @@ export const getUser = async(id) =>{
 
     return resData;
 }
+
+export const createTurf = async (turfName,description,location,price,games,posterUrl,featured,slots) => {
+    let res
+    try {
+        res = await axios.post('/turf', {
+            turfName,
+            description,
+            location,
+            price,
+            games,
+            posterUrl,
+            featured,
+            slots
+        },
+    {
+        headers:{
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+    }
+    );
+      console.log('Turf created:', response.data);
+    } catch (error) {
+        console.error('Error creating turf:', error);
+    }
+
+    const resData = await res.data;
+    return resData;
+};

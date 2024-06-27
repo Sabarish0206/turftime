@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import Header from "./Components/Header"
+import Header from "./Components/Header.jsx"
 import { Route, Router, Routes } from 'react-router-dom';
 import Turf from './Components/Turf/Turf.jsx';
 import Homepage from './Components/Homepage.jsx';
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { adminActions, userActions } from './Store/index.js';
 import AdminProfile from './Components/Admin/AdminProfile.jsx';
 import UserProfile from './Components/User/UserProfile.jsx';
+import AddTurf from './Components/Admin/AddTurf.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -38,6 +39,7 @@ function App() {
           <Route path="/user/:id" element={<UserProfile/>} />
           <Route path="/admin" element={<Admin/>}/>
           <Route path="/admin/profile" element={<AdminProfile/>} />
+          <Route path="/admin/add" element={<AddTurf/>} />
           <Route path="/auth" element={<Auth/>}/>
         </Routes>
       </section>

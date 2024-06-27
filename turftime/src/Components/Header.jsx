@@ -74,7 +74,7 @@ const Header = ()=>{
                             isAdminLogedIn && 
                             <>
                             <Tab LinkComponent={Link} to="/admin/profile"  label="Profile"/>
-                            <Tab LinkComponent={Link} to="/add"  label="AddTurf"/>
+                            <Tab LinkComponent={Link} to="/admin/add"  label="AddTurf"/>
                             <Tab onClick={()=>{logOut(true)}} LinkComponent={Link} to="/" label="LogOut"/>
                             </>
                         }

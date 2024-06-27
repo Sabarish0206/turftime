@@ -30,6 +30,11 @@ export const newBooking = async(req,res,next)=>{
         console.log("no turf");
         return res.status(422).json({message:"Turf not found"})
     } 
+    const slot = existingTurf.slots[slotNumber - 1];
+    if (slot.isBooked) {
+        return res.status(404).json({message:"Slot already booked"})
+    }
+
     let booking;
     try{
         booking =new Bookings({turf,
@@ -40,12 +45,14 @@ export const newBooking = async(req,res,next)=>{
 
         const session = await mongoose.startSession();
         session.startTransaction();
+        slot.isBooked = true;
         await booking.save({session});
         existingUser.bookings.push(booking);
         existingTurf.bookings.push(booking);
         await existingUser.save({session});
         await existingTurf.save({session});
         await session.commitTransaction();
+        
     }catch(err){
         console.log(err);
     }

@@ -1,5 +1,16 @@
 import mongoose from "mongoose";
 
+const slotSchema = new mongoose.Schema({
+    time: {
+        type: String,
+        required: true,
+    },
+    isBooked: {
+        type: Boolean,
+        default: false,
+    },
+});
+
 const turfSchema = new mongoose.Schema({
     turfName:{
         type:String,
@@ -36,7 +47,8 @@ const turfSchema = new mongoose.Schema({
     },
     featured:{
         type:Boolean,
-    }
+    },
+    slots: [slotSchema],
 
 });
 
