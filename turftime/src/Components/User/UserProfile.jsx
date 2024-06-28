@@ -17,45 +17,54 @@ const UserProfile = () => {
     },[useId])
     console.log("USer:",user)
   return (
-      <Box  width="100%" 
-       marginTop="100px" >
+    
+      <Box  width="100%" display={'flex'} marginTop="100px" >
 
-      <Box width="50%" 
-       display="flex" 
-       flexDirection="column"
-       alignItems="center"
-       >  
+        {user &&<>
+        <Box width="20%" 
+        display="flex" 
+        flexDirection="column"
+        alignItems="center"
+        >  
 
             <Avatar variant="rounded"> User name</Avatar>
-          {user &&<> 
-          <Typography paddingTop={4}>
-                NAME :{user.name}
-            </Typography>
             
-             <Typography paddingTop={4}>
-                Email:{user.email}
-            </Typography>
+            <Typography paddingTop={4}>
+                    NAME :{user.name}
+                </Typography>
+                
+                <Typography paddingTop={4}>
+                    Email:{user.email}
+                </Typography>
 
+            </Box> 
+    
 
+    <Box width={'50%'}>
+    <Typography textAlign={'center'}>BOOKINGS</Typography>
             {user.bookings.map((booking) => (
                 <>
-                    <Typography paddingTop={4} key={booking._id}> 
+                
+                <Box display={'flex'} justifyContent="space-between" margin={3} padding={3} sx={{ p: 3, border: '1px solid grey' }}>
+                    <Typography  key={booking._id}> 
                         Turf Name: {booking.turfName}
                     </Typography>
-                    <Typography paddingTop={4}>
+                    <Typography >
                     Date: {new Date(booking.date).toLocaleDateString()}
                     </Typography>
-                    <Typography paddingTop={4}>
+                    <Typography >
                     Slot Time: {booking.slotNumber}
                     </Typography>
-                    </>
+                </Box>
+                </>
                 ))}
 
-            </> 
-            }
-            </Box>
-            
-      </Box>
+    </Box>
+
+    </>}
+    </Box>
+
+      
   )
 }
 

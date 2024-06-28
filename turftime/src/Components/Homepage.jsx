@@ -36,7 +36,7 @@ const Homepage = () => {
         > 
         {turf.slice(0,2).map((item,index)=> 
         <TurfItems 
-        id={item.id} 
+        id={item._id} 
         turfName={item.turfName} 
         imageUrl={item.posterUrl} 
         description={item.description} 
