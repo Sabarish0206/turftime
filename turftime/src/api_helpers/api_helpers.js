@@ -58,8 +58,6 @@ export const getUser = async(id) =>{
 
     // const turf = await axios.get(`/user/${res.data.booking[0]}`)
 
-
-
     return resData;
 }
 
@@ -90,3 +88,35 @@ export const createTurf = async (turfName,description,location,price,games,poste
     const resData = await res.data;
     return resData;
 };
+
+export const getTurf = async(id) =>{
+    const res =await axios.get(`/turf/${id}`)
+    .catch(err=>console.log(err));
+
+    if(res){
+        console.log("response from apiHelper getTurf:",res);
+}
+
+    const resData = await res.data;
+    return resData;
+
+}
+
+export const bookTurf = async(turfId,slotId,userId,date,time)=>{ 
+    console.log(turfId,slotId,userId,date);
+    try {
+        const res = await axios.post('/booking', {
+            turf: turfId,
+            date: date,
+            slotId: slotId,
+            user: userId,
+            time:time
+        });
+        console.log("Booking created successfully", res.data);
+        return res.data;
+    } catch (err) {
+        console.error("Axios error:", err.response ? err.response.data : err.message);
+        throw err;
+    }
+
+}

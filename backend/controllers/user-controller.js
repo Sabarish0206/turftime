@@ -132,21 +132,17 @@ export const getUserBookingId = async(req,res,next)=>{
 export const getUserById = async(req,res,next)=>{
     const id = req.params.id;
     let user;
-    // try{
-    //     user = await User.findById(id);
-    // } 
     try { user = await User.findById(id)
             .populate({
                 path: 'bookings',
                 populate: {
                     path: 'turf',
-                    model: 'Turf'
+                    model: 'Turf',
                 }
             })}
     catch (err){
         return next(err);
     }
-
     if(!user){
         return res.status(500).json({messgage:"unexpected error occured"});
     }
@@ -158,12 +154,11 @@ export const getUserById = async(req,res,next)=>{
         bookings: user.bookings.map(booking => ({
             _id: booking._id,
             turfName: booking.turf.turfName,
-            date: booking.date,
-            slotNumber: booking.slotNumber
+            date: new Date(booking.date),
+            slotNumber: booking.time
         }))
     };
 
-    
 
     return res.status(200).json({ userWithTurfNames })
 }

@@ -5,6 +5,6 @@ const turfRouter = express.Router();
 
 turfRouter.post("/",addTurf);
 turfRouter.get("/",getAllTurf);
-turfRouter.get("/",getTurfById);
+turfRouter.get("/:id",getTurfById);
 
 export default turfRouter;

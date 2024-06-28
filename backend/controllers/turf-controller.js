@@ -61,7 +61,7 @@ export const addTurf = async(req,res,next)=>{
 
 
 export const getAllTurf = async(req,res,next)=>{
-    const {location} = req.body;
+   // const {location} = req.body;
     let turf;
     try{
         turf =await Turf.find()
@@ -78,7 +78,7 @@ export const getAllTurf = async(req,res,next)=>{
 
 
 export const getTurfById = async(req,res,next)=>{
-    const turfId = req.body;
+    const turfId = req.params.id;
     let turf;
         try{
         turf = await Turf.findById(turfId);

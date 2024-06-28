@@ -4,11 +4,12 @@ import User from "../models/User.js";
 import mongoose from "mongoose";
 
 export const newBooking = async(req,res,next)=>{
-    const {turf,date,slotNumber,user} = req.body;
-    if(!turf || turf.trim() === "" ||
-       !date || date.trim()===""||
-       !slotNumber ||
-       !user || user.trim() === "" ){
+
+    const {turf,slotId,user,date,time} = req.body;
+    if(!turf || !mongoose.Types.ObjectId.isValid(turf) ||
+    !date || typeof date !== 'string' ||
+    !slotId || !mongoose.Types.ObjectId.isValid(slotId) ||
+    !user || !mongoose.Types.ObjectId.isValid(user)){
         return res.status(422).json({messgage:"Invalid inputs"})
     }
 
@@ -30,16 +31,20 @@ export const newBooking = async(req,res,next)=>{
         console.log("no turf");
         return res.status(422).json({message:"Turf not found"})
     } 
-    const slot = existingTurf.slots[slotNumber - 1];
-    if (slot.isBooked) {
-        return res.status(404).json({message:"Slot already booked"})
+
+    const slot = existingTurf.slots.id(slotId);
+
+    if (!slot || slot.isBooked) {
+        return res.status(422).json({ message: "Slot not available" });
     }
 
     let booking;
     try{
-        booking =new Bookings({turf,
-                date: new Date(date),
-                slotNumber,
+        booking =new Bookings(
+                {turf,
+                date: date,
+                time,
+                slot:slotId,
                 user});
         
 

@@ -5,6 +5,10 @@ const slotSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    date:{
+        type:Date,
+        required:true,
+    },
     isBooked: {
         type: Boolean,
         default: false,

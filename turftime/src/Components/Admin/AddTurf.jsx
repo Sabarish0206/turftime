@@ -11,22 +11,36 @@ const AddTurf = () => {
     const [games, setGames] = useState([]);
     const [posterUrl, setPosterUrl] = useState('');
     const [featured, setFeatured] = useState(false);
-    const [slots, setSlots] = useState([{ time: '', isBooked: false }]);
+    const [slots, setSlots] = useState([{ date:'', time: '', isBooked: false }]);
 
     const handleAddSlot = () => {
-        setSlots([...slots, { time: '', isBooked: false }]);
+        setSlots([...slots, { date:'',time: '', isBooked: false }]);
     };
 
-    const handleSlotChange = (index, value) => {
-        const newSlots = [...slots];
-        newSlots[index].time = value;
+    const handleSlotChange = (index, key, value) => {
+        const newSlots = slots.map((slot, i) => {
+          if (i === index) {
+            return { ...slot, [key]: value };
+          }
+          return slot;
+        });
         setSlots(newSlots);
-    };
+      };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         createTurf(turfName,description,location,price,games,posterUrl,featured,slots)
         .then((res)=>console.log("From create turf",res))
+        .then(()=>{
+            setTurfName("");
+            setDescription("");
+            setFeatured(false);
+            setLocation("");
+            setPrice("");
+            setGames([]);
+            setPosterUrl("");
+            setSlots([{ time: '', isBooked: false }])
+        })
     };
 
     return (
@@ -99,11 +113,18 @@ const AddTurf = () => {
                 <label>Slots:</label>
                 {slots.map((slot, index) => (
                     <div key={index}>
+                    <input
+                        type="date"
+                        placeholder={`Slot ${index + 1} date`}
+                        value={slot.date}
+                        onChange={(e) => handleSlotChange(index, 'date', e.target.value)}
+                        required
+                    />
                         <input
                             type="text"
                             placeholder={`Slot ${index + 1} time`}
                             value={slot.time}
-                            onChange={(e) => handleSlotChange(index, e.target.value)}
+                            onChange={(e) => handleSlotChange(index,'time', e.target.value)}
                             required
                         />
                     </div>

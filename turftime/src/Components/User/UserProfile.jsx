@@ -43,10 +43,10 @@ const UserProfile = () => {
                         Turf Name: {booking.turfName}
                     </Typography>
                     <Typography paddingTop={4}>
-                    Date: {new Date(booking.date).toLocaleString()}
+                    Date: {new Date(booking.date).toLocaleDateString()}
                     </Typography>
                     <Typography paddingTop={4}>
-                    Slot Number: {booking.slotNumber}
+                    Slot Time: {booking.slotNumber}
                     </Typography>
                     </>
                 ))}

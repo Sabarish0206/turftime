@@ -11,6 +11,7 @@ import { adminActions, userActions } from './Store/index.js';
 import AdminProfile from './Components/Admin/AdminProfile.jsx';
 import UserProfile from './Components/User/UserProfile.jsx';
 import AddTurf from './Components/Admin/AddTurf.jsx';
+import Booking from './Components/Booking/Booking.jsx';
 
 function App() {
   const dispatch = useDispatch();
@@ -41,6 +42,7 @@ function App() {
           <Route path="/admin/profile" element={<AdminProfile/>} />
           <Route path="/admin/add" element={<AddTurf/>} />
           <Route path="/auth" element={<Auth/>}/>
+          <Route path="/booking/:id" element={<Booking/>}/>
         </Routes>
       </section>
     </div>
