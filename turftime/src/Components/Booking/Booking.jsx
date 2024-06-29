@@ -65,7 +65,8 @@ const Booking = () => {
         {data.slots &&
           data.slots.map((slot,index)=>(
 
-            <Box display={'flex'} width={'70%'} margin={2} sx={{ p: 3, border: '1px solid grey' }}>
+            <Box display={'flex'} width={'70%'} margin={2} sx={{p: 3, border: '1px solid grey', borderRadius:5,
+              ":hover":{boxShadow:"10px 10px 20px  #ccc",}}} >
 
             <Typography marginRight={'auto'}>
             slot {index}

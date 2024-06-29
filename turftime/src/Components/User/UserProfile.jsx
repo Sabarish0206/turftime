@@ -40,12 +40,13 @@ const UserProfile = () => {
             </Box> 
     
 
-    <Box width={'50%'}>
+    <Box width={'70%'}>
     <Typography textAlign={'center'}>BOOKINGS</Typography>
             {user.bookings.map((booking) => (
                 <>
                 
-                <Box display={'flex'} justifyContent="space-between" margin={3} padding={3} sx={{ p: 3, border: '1px solid grey' }}>
+                <Box display={'flex'} justifyContent="space-between" margin={3} sx={{p: 3, border: '1px solid grey', borderRadius:5,
+              ":hover":{boxShadow:"10px 10px 20px  #ccc",}}}>
                     <Typography  key={booking._id}> 
                         Turf Name: {booking.turfName}
                     </Typography>
