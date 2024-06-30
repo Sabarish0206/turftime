@@ -56,9 +56,10 @@ const Header = ()=>{
                 <Box paddingLeft={"40px"} marginLeft={"auto"}>
                     <Tabs textColor="white" 
                     indicatorColor="secondary" 
-                    value={value} 
+                    //value={} 
                     onChange={(e,val)=>{setValue(val)}}
                 >
+
 
                         <Tab LinkComponent={Link} to="/turf"  label="Turf"/>
 
