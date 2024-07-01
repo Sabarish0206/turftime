@@ -3,11 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { bookTurf, getTurf } from '../../api_helpers/api_helpers';
 import TurfItems from '../Turf/TurfItems';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 const Booking = () => {
-  
+  const navigate = useNavigate();
   const turfId = useParams().id;
-
+    const isUserLogedIn =useSelector((state)=>state.user.isLogedIn);
   const userId = localStorage.getItem("userId");
 
   const [data,setData] =useState({});
@@ -80,14 +82,37 @@ const Booking = () => {
             {slot.time}
             </Typography>
 
-            { !slot.isBooked ?
-            <Button onClick={() => handleBooking(slot._id,slot.date,slot.time)} variant="outlined" disabled={isBooking}>Book</Button>
-             :
-            <Button variant="outlined" disabled>Booked</Button>
-            }
-            </Box>
-          ))
-        }
+              {/* {
+                !isUserLogedIn && <Button onClick={() => handleBooking(slot._id,slot.date,slot.time)} variant="outlined" disabled>Login</Button>
+              } */}
+
+            
+      {(!isUserLogedIn && !slot.isBooked) && (
+        <Button variant="outlined" onClick={()=>navigate('/auth')}>
+          Login to Book
+        </Button>
+      )}
+
+      {(isUserLogedIn && !slot.isBooked) && (
+        <Button onClick={() => handleBooking(slot._id, slot.date, slot.time)} variant="outlined" disabled={isBooking}>
+          Book
+        </Button>)
+      }
+
+      {(isUserLogedIn && slot.isBooked) && (
+        <Button variant="outlined" disabled>
+          Booked
+        </Button>)
+      }
+
+      {(!isUserLogedIn && slot.isBooked) &&(
+        <Button variant="outlined" disabled>
+          Booked
+        </Button>)
+      }
+            
+      </Box>))
+    }
       </Box>
    
     </Box>

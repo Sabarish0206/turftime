@@ -1,6 +1,7 @@
 import { Dialog, Typography,Box,TextField,Button, IconButton } from '@mui/material'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const AuthForm = ({onSubmit,isAdmin}) => {
 
@@ -9,6 +10,8 @@ const AuthForm = ({onSubmit,isAdmin}) => {
         email:"",
         password:""
     });
+    
+    const navigate = useNavigate();
 
     const [isSignup,setIsSignup] = useState(false);
 
@@ -20,10 +23,8 @@ const AuthForm = ({onSubmit,isAdmin}) => {
         }));
     };
 
-    const [open,setOpen]= useState(true)
-
     const close=()=>{
-        setOpen(!open);
+        navigate('/')
     }
 
     const handleSubmit = (e)=>{
@@ -80,7 +81,7 @@ const AuthForm = ({onSubmit,isAdmin}) => {
 
     fullWidth
   />
-    <Button onClick={close} type="submit" variant="contained" color="primary">
+    <Button type="submit" variant="contained" color="primary">
     {isSignup?"SIGNUP":"LOGIN"}
   </Button>
 

@@ -18,10 +18,11 @@ export const sendUserAuthRequest = async (data,signUp) =>{
         name:signUp ? data.name : "",
         email:data.email,
         password:data.password}
-    ).catch((err)=>console.log(err));
+    ).catch((err)=>{console.log(err);
+    });
 
     if(!res){
-        console.log("Error");
+        return;
     }
 
     const resData = await res.data;
@@ -36,7 +37,7 @@ export const sendAdminAuthRequest = async (data,signUp) =>{
     ).catch((err)=>console.log(err));
 
     if(!res){
-        console.log("Error");
+        return;
     }
 
     const resData = await res.data;

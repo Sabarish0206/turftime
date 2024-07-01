@@ -85,7 +85,7 @@ export const login = async(req,res,next)=>{
     if(!email || email.trim() === "" || !password || password.trim()===""){
         return res.status(422).json({message:"Invalid inputs"})
     }
-
+    
     let existingUser;
     try{
         existingUser = await User.findOne({email});

@@ -1,6 +1,7 @@
 import React from 'react'
 import {Card,CardMedia,Typography,CardContent,CardActions,Button} from '@mui/material'
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const TurfItems = ({id,imageUrl,turfName,description,location}) => {
   return (
