@@ -75,3 +75,29 @@ export const getAllAdmin = async(req,res,next) =>{
 
     return res.status(200).json({admin})
 };
+
+export const getAdminById = async(req,res,next)=>{
+    let admin;
+    const adminId = req.params.id;
+    try {
+        admin = await Admin.findById(adminId).
+        populate({
+                path: 'addedTurfs',
+                model: 'Turf',
+        })
+    } catch (err) {
+        return next(err);
+    }
+
+    if(!admin){
+        return res.status(500).json({messgage:"No admin found"});
+    }
+
+    const adminDetails =  {
+        id: admin._id,
+        email: admin.email,
+        addedTurfs: admin.addedTurfs,
+    };
+
+    return res.status(201).json({adminDetails});
+}

@@ -82,10 +82,6 @@ const Booking = () => {
             {slot.time}
             </Typography>
 
-              {/* {
-                !isUserLogedIn && <Button onClick={() => handleBooking(slot._id,slot.date,slot.time)} variant="outlined" disabled>Login</Button>
-              } */}
-
             
       {(!isUserLogedIn && !slot.isBooked) && (
         <Button variant="outlined" onClick={()=>navigate('/auth')}>

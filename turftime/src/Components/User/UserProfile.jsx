@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Box,Avatar, Typography } from '@mui/material'
 import { getUser } from '../../api_helpers/api_helpers';
 import { useParams } from 'react-router-dom';
-
-
+import PersonIcon from '@mui/icons-material/Person';
 
 const UserProfile = () => {
-    const useId = localStorage.getItem("userId")
+    const userId = localStorage.getItem("userId")
     const {id} = useParams();
     const [user,setUser] = useState(null);
 
@@ -14,7 +13,7 @@ const UserProfile = () => {
         getUser(id)
         .then((res)=>setUser(res.userWithTurfNames))
         .catch((err)=>console.log(err))
-    },[useId])
+    },[userId])
     console.log("USer:",user)
   return (
     
@@ -26,21 +25,21 @@ const UserProfile = () => {
         flexDirection="column"
         alignItems="center"
         >  
+        <Avatar variant="rounded"> <PersonIcon/></Avatar>
 
-            <Avatar variant="rounded"> User name</Avatar>
-            
-            <Typography paddingTop={4}>
-                    NAME :{user.name}
+        <Box textAlign={'center'} alignItems="center">
+            <Typography textTransform={'capitalize'} variant='h6' paddingTop={2}>
+                 {user.name}
                 </Typography>
                 
-                <Typography paddingTop={4}>
-                    Email:{user.email}
+                <Typography textTransform={'lowercase'} variant='subtitle2' paddingTop={1}>
+                    {user.email}
                 </Typography>
-
+        </Box>
             </Box> 
     
-
-    <Box width={'70%'}>
+{user.bookings.length !==0 ?
+    <Box width={'70%'}> 
     <Typography textAlign={'center'}>BOOKINGS</Typography>
             {user.bookings.map((booking) => (
                 <>
@@ -61,7 +60,10 @@ const UserProfile = () => {
                 ))}
 
     </Box>
-
+     : <Box width={'70%'}>
+             <Typography textAlign={'center'}>No Bookings created</Typography>
+        </Box>
+        }
     </>}
     </Box>
 

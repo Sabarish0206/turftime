@@ -37,11 +37,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Homepage/>}/>
           <Route path="/turf" element={<Turf/>} />
-          <Route path="/user/:id" element={<UserProfile/>} />
-          <Route path="/admin" element={<Admin/>}/>
-          <Route path="/admin/profile" element={<AdminProfile/>} />
+          {isUserLogedIn && <Route path="/user/:id" element={<UserProfile/>} />}
+          {(!isUserLogedIn && !isAdminLogedIn) &&<Route path="/admin" element={<Admin/>}/>}
+          {isAdminLogedIn &&<>
+          <Route path="/admin/:id" element={<AdminProfile/>} />
           <Route path="/admin/add" element={<AddTurf/>} />
-          <Route path="/auth" element={<Auth/>}/>
+          </>}
+          {(!isUserLogedIn && !isAdminLogedIn) && <Route path="/auth" element={<Auth/>}/>}
           <Route path="/booking/:id" element={<Booking/>}/>
         </Routes>
       </section>

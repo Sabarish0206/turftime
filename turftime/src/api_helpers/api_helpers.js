@@ -121,3 +121,16 @@ export const bookTurf = async(turfId,slotId,userId,date,time)=>{
     }
 
 }
+
+export const getAdmin = async(id)=>{
+    const res = await axios.get(`/admin/${id}`)
+        .catch(err=>{return err});
+
+    if(res){
+        console.log("response from apiHelper admin:",res);
+    }
+
+    const resData = await res.data;
+    console.log("Admin:",resData);
+    return resData;
+}

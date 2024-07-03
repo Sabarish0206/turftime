@@ -12,7 +12,8 @@ const Header = ()=>{
     const isAdminLogedIn =useSelector((state)=>state.admin.isLogedIn);
     const isUserLogedIn =useSelector((state)=>state.user.isLogedIn);
 
-    const userId = localStorage.getItem("userId")
+    const userId = localStorage.getItem("userId");
+    const adminId = localStorage.getItem("adminId");
 
     const dispatch = useDispatch();
 
@@ -77,7 +78,7 @@ const Header = ()=>{
                         {
                             isAdminLogedIn && 
                             <>
-                            <Tab LinkComponent={Link} to="/admin/profile"  label="Profile"/>
+                            <Tab LinkComponent={Link} to={`/admin/${adminId}`}  label="Profile"/>
                             <Tab LinkComponent={Link} to="/admin/add"  label="AddTurf"/>
                             <Tab onClick={()=>{logOut(true)}} LinkComponent={Link} to="/" label="LogOut"/>
                             </>
