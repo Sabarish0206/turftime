@@ -16,10 +16,8 @@ const Booking = () => {
   const [isBooking,setIsBooking] = useState(false);
 
   useEffect(()=>{
-    console.log("Turfid:",turfId);
     getTurf(turfId)
     .then((res)=>{setData(res.turf)})
-    .then(console.log(data))
     .catch((err)=>{console.log(err);})
   },[turfId])
 
@@ -51,9 +49,9 @@ const Booking = () => {
     </Box>
 
 
-    <Box paddingTop={5} width={'100%'} display={'flex'}>
+    <Box marginLeft={3} paddingTop={5} display={'flex'} flexDirection={{ xs: 'column', sm: 'row' }}>
 
-      <Box width={'30%'}>
+      <Box width={'auto'} display={'flex'} justifyContent="center" height={'5%'}>
         <TurfItems 
           id={data._id}
           turfName={data.turfName} 
@@ -63,11 +61,11 @@ const Booking = () => {
           />
       </Box>
 
-      <Box width={'70%'}>
+      <Box width={{xs:'100%',sm:'70%'}} margin={{xs:'auto'}}>
         {data.slots &&
           data.slots.map((slot,index)=>(
 
-            <Box display={'flex'} width={'70%'} margin={2} sx={{p: 3, border: '1px solid grey', borderRadius:5,
+            <Box display={'flex'} justifyContent="center" width={{ xs: 'auto', sm: '70%' }} margin={2 } sx={{p: 3, border: '1px solid grey', borderRadius:5,
               ":hover":{boxShadow:"10px 10px 20px  #ccc",}}} >
 
             <Typography marginRight={'auto'}>

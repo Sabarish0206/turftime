@@ -20,7 +20,7 @@ const Admin = () => {
   
   const getData = (data)=>{
     sendAdminAuthRequest(data.input,data.signup)
-    .then((res)=>{console.log("Res:",res);
+    .then((res)=>{
       if(res===undefined){
         setIsAdminCorrect(false);
       }else{

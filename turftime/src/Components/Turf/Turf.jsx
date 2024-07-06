@@ -8,9 +8,8 @@ const Turf = () => {
   useEffect(()=>{
     getAllTurfs()
     .then((data)=>{setTurf(data.turf)})
-    .catch((err)=>console.log(err))
+    .catch((err)=>{err})
   },[])
-  console.log("Turf:",turf);
   return (
     
       <Box width="100%" height="100%" marginTop="80px" > 

@@ -7,7 +7,6 @@ const userSclice = createSlice({
     },
     reducers:{
         login(state,action){
-            console.log('login action payload:', action.payload);
             state.isLogedIn=true;
             // state.name=action.payload.name;
             // state.userId=action.payload.id;
@@ -39,7 +38,7 @@ export const userActions=  userSclice.actions;
 export const adminActions = adminSlice.actions;
 
 export const store = configureStore({
-    devTools:true,
+    devTools:false,
     reducer:{
         user:userSclice.reducer,
         admin:adminSlice.reducer,

@@ -2,15 +2,16 @@ import axios from "axios";
 
 export const getAllTurfs = async()=>{
     const res = await axios.get("/turf")
-    .catch(err=>console.log(err));
+    .catch(err=>{
+        return err
+    });
 
     if(res){
-        console.log("response:",res);
+        const resData = await res.data;
+        return resData;
     }
-
-    const resData = await res.data;
-    console.log("data:",resData);
-    return resData;
+    return;
+    
 }
 
 export const sendUserAuthRequest = async (data,signUp) =>{
@@ -18,7 +19,7 @@ export const sendUserAuthRequest = async (data,signUp) =>{
         name:signUp ? data.name : "",
         email:data.email,
         password:data.password}
-    ).catch((err)=>{console.log(err);
+    ).catch((err)=>{console.log(err.response.data);
     });
 
     if(!res){
@@ -26,7 +27,6 @@ export const sendUserAuthRequest = async (data,signUp) =>{
     }
 
     const resData = await res.data;
-    console.log("post:",res);
     return resData;
 }
 
@@ -34,7 +34,7 @@ export const sendAdminAuthRequest = async (data,signUp) =>{
     const res = await axios.post("/admin/login",{
         email:data.email,
         password:data.password}
-    ).catch((err)=>console.log(err));
+    ).catch((err)=>{return});
 
     if(!res){
         return;
@@ -46,20 +46,16 @@ export const sendAdminAuthRequest = async (data,signUp) =>{
 }
 
 export const getUser = async(id) =>{
-    console.log("From apihelpers Id:",id)
     const res = await axios.get(`/user/${id}`)
         .catch(err=>console.log(err));
 
     if(res){
-        console.log("response from apiHelper:",res);
+        const resData = await res.data;
+        return resData;
     }
 
-    const resData = await res.data;
-    console.log("UserByid:",resData);
-
-    // const turf = await axios.get(`/user/${res.data.booking[0]}`)
-
-    return resData;
+    return;
+    
 }
 
 export const createTurf = async (turfName,description,location,price,games,posterUrl,featured,slots) => {
@@ -95,16 +91,14 @@ export const getTurf = async(id) =>{
     .catch(err=>console.log(err));
 
     if(res){
-        console.log("response from apiHelper getTurf:",res);
+        const resData = await res.data;
+        return resData;
+    }
+
+    return;
 }
 
-    const resData = await res.data;
-    return resData;
-
-}
-
-export const bookTurf = async(turfId,slotId,userId,date,time)=>{ 
-    console.log(turfId,slotId,userId,date);
+export const bookTurf = async(turfId,slotId,userId,date,time)=>{
     try {
         const res = await axios.post('/booking', {
             turf: turfId,
@@ -113,7 +107,6 @@ export const bookTurf = async(turfId,slotId,userId,date,time)=>{
             user: userId,
             time:time
         });
-        console.log("Booking created successfully", res.data);
         return res.data;
     } catch (err) {
         console.error("Axios error:", err.response ? err.response.data : err.message);

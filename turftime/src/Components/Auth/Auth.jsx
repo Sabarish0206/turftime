@@ -15,10 +15,8 @@ const Auth = () => {
 
 
   const onResponse = (data,isSignUp) =>{
-    console.log("Auth after user auth DB request(Auth.jsx):",data);
     if(data!==undefined){
     if(!isSignUp){
-    console.log("isSignup:",isSignUp)
     dispatch(userActions.login({name: data.name, id: data.id}));
     }
     localStorage.setItem("userId",data.id);
@@ -29,7 +27,7 @@ const Auth = () => {
 
   const getData = (data)=>{
     sendUserAuthRequest(data.input,data.signup)
-    .then((res)=>{console.log("Res:",res);
+    .then((res)=>{
       if(res===undefined){
         setIsAuthCorrect(false);
       }else{

@@ -11,7 +11,6 @@ const Homepage = () => {
     .then((res)=>setTurf(res.turf))
     .catch((err)=>console.log(err))
   },[])
-  console.log("Homepage:",turf)
   return (
     <div>
     

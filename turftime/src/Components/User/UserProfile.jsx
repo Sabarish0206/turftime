@@ -14,42 +14,36 @@ const UserProfile = () => {
         .then((res)=>setUser(res.userWithTurfNames))
         .catch((err)=>console.log(err))
     },[userId])
-    console.log("USer:",user)
   return (
     
-      <Box  width="100%" display={'flex'} marginTop="100px" >
+      <Box  width="100%" display={'flex'} marginTop="100px"  flexDirection={{ xs: 'column', sm: 'row' }}>
 
         {user &&<>
-        <Box width="20%" 
-        display="flex" 
-        flexDirection="column"
-        alignItems="center"
-        >  
+        <Box margin={{xs:'auto',sm:1}} textAlign={'center'} width="20%" display="flex" flexDirection="column" alignItems="center">  
         <Avatar variant="rounded"> <PersonIcon/></Avatar>
-
-        <Box textAlign={'center'} alignItems="center">
+         <Box textAlign={'center'} alignItems="center">
             <Typography textTransform={'capitalize'} variant='h6' paddingTop={2}>
                  {user.name}
                 </Typography>
                 
-                <Typography textTransform={'lowercase'} variant='subtitle2' paddingTop={1}>
+                <Typography textTransform={'lowercase'} variant='subtitle2' paddingTop={1} paddingBottom={2}>
                     {user.email}
                 </Typography>
         </Box>
             </Box> 
     
 {user.bookings.length !==0 ?
-    <Box width={'70%'}> 
+    <Box width={{xs:'auto',sm:'70%'}} margin={{xs:'auto'}}> 
     <Typography textAlign={'center'}>BOOKINGS</Typography>
             {user.bookings.map((booking) => (
                 <>
                 
                 <Box display={'flex'} justifyContent="space-between" margin={3} sx={{p: 3, border: '1px solid grey', borderRadius:5,
               ":hover":{boxShadow:"10px 10px 20px  #ccc",}}}>
-                    <Typography  key={booking._id}> 
+                    <Typography margin={1}  key={booking._id}> 
                         Turf Name: {booking.turfName}
                     </Typography>
-                    <Typography >
+                    <Typography margin={1} >
                     Date: {new Date(booking.date).toLocaleDateString()}
                     </Typography>
                     <Typography >

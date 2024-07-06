@@ -6,7 +6,12 @@ import {BrowserRouter} from "react-router-dom";
 import axios from 'axios';
 import { Provider } from 'react-redux';
 import { store } from './Store/index.js';
-axios.defaults.baseURL ="http://localhost:5000"
+import {disableReactDevTools} from '@fvilers/disable-react-devtools';
+
+axios.defaults.baseURL =import.meta.env.VITE_API_BASE_URL;
+
+disableReactDevTools();
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>

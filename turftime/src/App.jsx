@@ -19,14 +19,11 @@ function App() {
   const isUserLogedIn =useSelector((state)=>state.user.isLogedIn);
   const userId = localStorage.getItem("userId")
   useEffect(()=>{
-    console.log(userId)
   if(userId && userId !== "undefined"){
     dispatch(userActions.login());
-    console.log("ds")
   }
   if (localStorage.getItem("adminId")){
     dispatch(adminActions.login());
-  
   }
     
 },[dispatch,Auth])
