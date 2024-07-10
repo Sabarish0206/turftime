@@ -1,4 +1,4 @@
-import { Box, Button, Typography} from '@mui/material';
+import { Box, Button, Typography,CircularProgress} from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import TurfItems from './Turf/TurfItems';
 import { Link } from "react-router-dom";
@@ -6,10 +6,15 @@ import { getAllTurfs } from '../api_helpers/api_helpers';
 
 const Homepage = () => {
   const [turf,setTurf] = useState([]);
+  const [loading,setLoading] = useState(true);
  useEffect(()=>{
     getAllTurfs()
-    .then((res)=>setTurf(res.turf))
-    .catch((err)=>console.log(err))
+    .then((res)=>{setTurf(res.turf);
+      setLoading(false);
+    })
+    .catch((err)=>{console.log(err)
+      setLoading(false);
+    })
   },[])
   return (
     <div>
@@ -26,7 +31,12 @@ const Homepage = () => {
         <Box padding={5} margin={"auto"}>
           <Typography variant='h4' textAlign={"center"}>TURF ' S</Typography>
         </Box>
-
+      { loading ?
+      <Box marginTop={7} marginBottom={7} sx={{ display: 'flex',justifyContent:'center',alignItems:'center'}}>
+        <CircularProgress/>
+      </Box>
+      :
+        <>
         <Box display="flex" 
              width="80%" 
              justifyContent="center" 
@@ -43,6 +53,8 @@ const Homepage = () => {
         location={item.location} />)}
           
         </Box>
+        </>
+      }
 
         <Box display={"flex"} padding={5} margin={"auto"}>
           <Button  
