@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {AppBar, Toolbar, Autocomplete, TextField, Tab, Tabs, IconButton} from "@mui/material";
+import {AppBar, Toolbar, Autocomplete, TextField, Tab, Tabs, IconButton,useMediaQuery, useTheme} from "@mui/material";
 import GrassTwoToneIcon from '@mui/icons-material/GrassTwoTone';
 import { Box }from "@mui/system";
 import { getAllTurfs } from "../api_helpers/api_helpers";
@@ -30,19 +30,23 @@ const Header = ()=>{
     const logOut = (isAdmin)=>{
         isAdmin ? dispatch(adminActions.logout()) : dispatch(userActions.logout())
     }
+
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
     <div>
         <AppBar sx={{bgcolor:"#2b2d42"}}>
             <Toolbar>
                 <Box width={"20%"} marginRight={"auto"}>
-                <IconButton LinkComponent={Link} to="/" sx={{color:"white"}}>
-                <GrassTwoToneIcon/>
-                </IconButton>
-                    
+                    <IconButton LinkComponent={Link} to="/" sx={{color:"white"}}>
+                        <GrassTwoToneIcon/>
+                    </IconButton>
                 </Box>
-                
+                { !isSmallScreen &&
                 <Box width={"30%"} margin="auto" >
                     <Autocomplete 
+                        disabled={isSmallScreen}
                         id="free-solo-demo"
                         search
                         options={turf.map((option) => option.turfName)}
@@ -53,7 +57,7 @@ const Header = ()=>{
                         />}
                     />
                 </Box>
-
+                }
                 <Box paddingLeft={"40px"} marginLeft={"auto"}>
                     <Tabs textColor="white" 
                     indicatorColor="secondary" 

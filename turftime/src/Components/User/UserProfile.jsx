@@ -38,7 +38,7 @@ const UserProfile = () => {
             {user.bookings.map((booking) => (
                 <>
                 
-                <Box display={'flex'} justifyContent="space-between" margin={3} sx={{p: 3, border: '1px solid grey', borderRadius:5,
+                <Box display={'flex'} flexDirection={{ xs: 'column', sm: 'row' }} justifyContent="space-between" margin={3} sx={{p: 3, border: '1px solid grey', borderRadius:5,
               ":hover":{boxShadow:"10px 10px 20px  #ccc",}}}>
                     <Typography margin={1}  key={booking._id}> 
                         Turf Name: {booking.turfName}
@@ -46,7 +46,7 @@ const UserProfile = () => {
                     <Typography margin={1} >
                     Date: {new Date(booking.date).toLocaleDateString()}
                     </Typography>
-                    <Typography >
+                    <Typography margin={1} >
                     Slot Time: {booking.slotNumber}
                     </Typography>
                 </Box>

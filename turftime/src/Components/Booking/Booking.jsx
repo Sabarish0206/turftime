@@ -1,10 +1,12 @@
-import { Box, Button, Typography } from '@mui/material'
+import { Box, Button, Typography} from '@mui/material'
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { bookTurf, getTurf } from '../../api_helpers/api_helpers';
 import TurfItems from '../Turf/TurfItems';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+
+
 
 const Booking = () => {
   const navigate = useNavigate();
@@ -39,7 +41,6 @@ const Booking = () => {
     }
   };
 
-
   return (
     <div>
     <Box paddingTop={8} width={'100%'}>
@@ -65,18 +66,18 @@ const Booking = () => {
         {data.slots &&
           data.slots.map((slot,index)=>(
 
-            <Box display={'flex'} justifyContent="center" width={{ xs: 'auto', sm: '70%' }} margin={2 } sx={{p: 3, border: '1px solid grey', borderRadius:5,
-              ":hover":{boxShadow:"10px 10px 20px  #ccc",}}} >
+            <Box display={'flex'} justifyContent="center" flexWrap='wrap' width={{ xs: 'auto', sm: '70%' }} margin={3} sx={{p: 3, border: '1px solid grey', borderRadius:5,
+              ":hover":{boxShadow:"10px 10px 20px  #ccc",}}}>
 
-            <Typography marginRight={'auto'}>
+            <Typography marginRight={'auto'} marginBottom={3}>
             slot {index}
             </Typography>
 
-            <Typography margin={'auto'}>
+            <Typography margin={'auto'} marginBottom={3}>
             {new Date(slot.date).toLocaleDateString()}
             </Typography>
 
-            <Typography margin={'auto'}>
+            <Typography margin={{xs:'0',sm:"auto"}} marginBottom={3}>
             {slot.time}
             </Typography>
 
