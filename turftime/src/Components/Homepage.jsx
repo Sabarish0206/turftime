@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import TurfItems from './Turf/TurfItems';
 import { Link } from "react-router-dom";
 import { getAllTurfs } from '../api_helpers/api_helpers';
+import Footer from './Footer';
 
 const Homepage = () => {
   const [turf,setTurf] = useState([]);
@@ -68,6 +69,7 @@ const Homepage = () => {
         </Box>
 
       </Box>
+      <Footer/>
     </div>
   )
 }
