@@ -26,7 +26,7 @@ const UserProfile = () => {
                  {user.name}
                 </Typography>
                 
-                <Typography textTransform={'lowercase'} variant='subtitle2' paddingTop={1} paddingBottom={2}>
+                <Typography textTransform={'lowercase'} variant='button' paddingTop={1} paddingBottom={2} gutterBottom>
                     {user.email}
                 </Typography>
         </Box>
@@ -34,7 +34,7 @@ const UserProfile = () => {
     
 {user.bookings.length !==0 ?
     <Box width={{xs:'auto',sm:'70%'}} margin={{xs:'auto'}}> 
-    <Typography textAlign={'center'}>BOOKINGS</Typography>
+    <Typography marginTop={1} variant="h6" textAlign={'center'}>MY BOOKINGS</Typography>
             {user.bookings.map((booking) => (
                 <>
                 

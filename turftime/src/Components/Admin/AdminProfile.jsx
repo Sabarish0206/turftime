@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Avatar,Box, Button, CardActionArea, CardActions  } from '@mui/material'
+import { Avatar,Box, Button, CardActionArea, CardActions, Divider  } from '@mui/material'
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import { getAdmin } from '../../api_helpers/api_helpers';
 import { useParams } from 'react-router-dom';
 import PersonIcon from '@mui/icons-material/Person';
+import { flexbox } from '@mui/system';
 
 
 
@@ -33,20 +34,22 @@ const AdminProfile = () => {
   return (
     <div>
 
-      <Box width={'100%'} paddingTop={10} display="flex" flexWrap="wrap">
+      <Box width={'100%'} paddingTop={10} display="flex" flexDirection={{ xs: 'column', sm: 'row' }}>
 
-        <Box display="flex" 
+        <Box  width={'auto'} display="flex" 
         flexDirection="column"
-        alignItems="center" width={'15%'}>
+        alignItems="center">
         <Avatar><PersonIcon/></Avatar>
-        <Typography margin={2} variant='h6'>{data.email}</Typography>
+        <Typography margin={2} variant='button'>{data.email}</Typography>
         </Box>
         
-        <Box width={'80%'} display={'flex'} flexWrap="wrap">
-{ data.addedTurfs.length !==0 &&
-<>
-  {data.addedTurfs.map((turf)=>(
-    <Card sx={{margin:2,width:'270px', maxWidth: 345 }}>
+        { data.addedTurfs.length !==0 &&
+        <Box>
+        <Typography textAlign='center' variant="h6" gutterBottom>ADDED TURF</Typography>
+          <Box justifyContent={{xs:"center"}}  display="flex" flexWrap={'wrap'}>
+          
+          {data.addedTurfs.map((turf)=>(
+          <Card sx={{margin:2,width:'270px', maxWidth: 345 }}>
             <CardActionArea>
               <CardMedia
                 component="img"
@@ -71,15 +74,15 @@ const AdminProfile = () => {
         </Card>
   ))
   }
-</>
-
+</Box>
+</Box>
 }
        
           
     
 
           
-        </Box>
+
       </Box>
     </div>
   )
