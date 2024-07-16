@@ -17,9 +17,10 @@ const Header = ()=>{
 
     const dispatch = useDispatch();
 
-    const [value,setValue] = useState(0);
+    const [value,setValue] = useState(null);
 
     const [turf,setTurf] = useState([]);
+
 
     useEffect(()=>{
     getAllTurfs()
@@ -34,12 +35,34 @@ const Header = ()=>{
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
+
+    const tabs = [
+        { label: "Turf", to: "/turf" },
+        ...(!isUserLogedIn && !isAdminLogedIn ? [
+          { label: "Auth", to: "/auth" },
+          { label: "Admin", to: "/admin" },
+        ] : []),
+        ...(isUserLogedIn ? [
+          { label: "Profile", to: `/user/${userId}` },
+          { label: "LogOut", to: "/", onClick: () => {logOut(false);
+            setValue(0);
+          } },
+        ] : []),
+        ...(isAdminLogedIn ? [
+          { label: "Profile", to: `/admin/${adminId}` },
+          { label: "AddTurf", to: "/admin/add" },
+          { label: "LogOut", to: "/", onClick: () => {logOut(true);
+            setValue(0);
+          } },
+        ] : []),
+      ];
+
     return (
     <div>
         <AppBar sx={{bgcolor:"#2b2d42"}}>
             <Toolbar>
                 <Box width={"20%"} marginRight={"auto"}>
-                    <IconButton LinkComponent={Link} to="/" sx={{color:"white"}}>
+                    <IconButton onClick={()=>{setValue(null)}} LinkComponent={Link} to="/" sx={{color:"white"}}>
                         <GrassTwoToneIcon/>
                     </IconButton>
                 </Box>
@@ -59,36 +82,24 @@ const Header = ()=>{
                 </Box>
                 }
                 <Box paddingLeft={"40px"} marginLeft={"auto"}>
+
                     <Tabs textColor="white" 
                     indicatorColor="secondary" 
-                    //value={} 
+                    value={value} 
                     onChange={(e,val)=>{setValue(val)}}
-                >
+                    >
 
-
-                        <Tab LinkComponent={Link} to="/turf"  label="Turf"/>
-
-                        {!isUserLogedIn && !isAdminLogedIn &&
-                        <>
-                            <Tab LinkComponent={Link} to="/auth"  label="Auth"/>
-                            <Tab LinkComponent={Link} to="/admin" label="Admin"/>
-                        </>}
-                        {isUserLogedIn &&
-                        <>
-                    <Tab LinkComponent={Link} to={`/user/${userId}`}  label="Profile"/>
-                        <Tab  onClick={()=>{logOut(false)}} LinkComponent={Link} to="/" label="LogOut"/>
-                        </>
-                        }
-                        {
-                            isAdminLogedIn && 
-                            <>
-                            <Tab LinkComponent={Link} to={`/admin/${adminId}`}  label="Profile"/>
-                            <Tab LinkComponent={Link} to="/admin/add"  label="AddTurf"/>
-                            <Tab onClick={()=>{logOut(true)}} LinkComponent={Link} to="/" label="LogOut"/>
-                            </>
-                        }
-                        
+                        {tabs.map((tab, index) => (
+                                <Tab
+                                    key={tab.label}
+                                    LinkComponent={Link}
+                                    to={tab.to}
+                                    label={tab.label}
+                                    onClick={tab.onClick}
+                                />
+                                ))}
                     </Tabs>
+
                 </Box>
             </Toolbar>
         </AppBar>
