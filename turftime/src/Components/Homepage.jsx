@@ -51,7 +51,9 @@ const Homepage = () => {
         imageUrl={item.posterUrl} 
         description={item.description} 
         key={index}
-        location={item.location} />)}
+        location={item.location} 
+        price={item.price}
+        />)}
           
         </Box>
         </>
